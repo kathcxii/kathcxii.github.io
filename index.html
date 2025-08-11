@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>斯特鲁普效应 - 多色彩心理学实验</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .game-content {
+            padding: 30px;
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 5px solid #4b6cb7;
+        }
+
+        .instructions h2 {
+            color: #4b6cb7;
+            margin-bottom: 15px;
+        }
+
+        .instructions ul {
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .word-display-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        #word-display {
+            font-size: 6rem;
+            font-weight: 900;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            padding: 30px 50px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .color-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 40px 0;
+        }
+
+        .color-btn {
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .color-btn:active {
+            transform: translateY(0);
+        }
+
+        /* 颜色按钮样式 */
+        .btn-red { background: linear-gradient(45deg, #ff6b6b, #ee5a52); }
+        .btn-blue { background: linear-gradient(45deg, #4b9fff, #3a86ff); }
+        .btn-green { background: linear-gradient(45deg, #51cf66, #40c057); }
+        .btn-yellow { background: linear-gradient(45deg, #ffd43b, #fcc419); }
+        .btn-purple { background: linear-gradient(45deg, #9c27b0, #7b1fa2); }
+        .btn-orange { background: linear-gradient(45deg, #ff9800, #f57c00); }
+
+        .result-container {
+            text-align: center;
+            min-height: 80px;
+            margin: 30px 0;
+        }
+
+        #result {
+            font-size: 1.8rem;
+            font-weight: 700;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #2e7d32;
+            border: 2px solid #4caf50;
+        }
+
+        .error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #c62828;
+            border: 2px solid #f44336;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            margin: 10px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #4b6cb7;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .game-btn {
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #4b6cb7, #182848);
+            color: white;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #51cf66, #40c057);
+            color: white;
+        }
+
+        .reset-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+        }
+
+        .game-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-btn:active {
+            transform: translateY(0);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            #word-display {
+                font-size: 4rem;
+                padding: 20px 30px;
+            }
+            
+            .color-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1>斯特鲁普效应游戏（增强版）</h1>
+            <p>心理学认知实验 | 测试你的注意力和反应速度 | 6种颜色挑战</p>
+        </div>
+        
+        <div class="game-content">
+            <div class="instructions">
+                <h2>游戏说明</h2>
+                <ul>
+                    <li>屏幕上会显示一个颜色词（如"红"、"蓝"、"绿"等）</li>
+                    <li><strong>请注意：</strong>文字的颜色可能与词义不同</li>
+                    <li>你需要尽快判断文字的<strong>实际颜色</strong>（不是词义）</li>
+                    <li>点击下方对应的颜色按钮作答</li>
+                    <li>游戏会统计你的正确率和平均反应时间</li>
+                </ul>
+            </div>
+            
+            <div class="word-display-container">
+                <div id="word-display"></div>
+            </div>
+            
+            <div class="color-buttons">
+                <button class="color-btn btn-red" onclick="checkAnswer('red')">红色</button>
+                <button class="color-btn btn-blue" onclick="checkAnswer('blue')">蓝色</button>
+                <button class="color-btn btn-green" onclick="checkAnswer('green')">绿色</button>
+                <button class="color-btn btn-yellow" onclick="checkAnswer('yellow')">黄色</button>
+                <button class="color-btn btn-purple" onclick="checkAnswer('purple')">紫色</button>
+                <button class="color-btn btn-orange" onclick="checkAnswer('orange')">橙色</button>
+            </div>
+            
+            <div class="result-container">
+                <div id="result"></div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-value" id="correct">0</div>
+                    <div class="stat-label">正确</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="wrong">0</div>
+                    <div class="stat-label">错误</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="avg-time">0</div>
+                    <div class="stat-label">平均反应时间(ms)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="round">0</div>
+                    <div class="stat-label">总题数</div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="start-btn" class="game-btn start-btn" onclick="startGame()">开始游戏</button>
+                <button id="next-btn" class="game-btn next-btn hidden" onclick="nextRound()">下一题</button>
+                <button id="reset-btn" class="game-btn reset-btn" onclick="resetGame()">重新开始</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>斯特鲁普效应：当词义与文字颜色不一致时，人们的反应时间通常会变长</p>
+        </div>
+    </div>
+
+    <script>
+        // 游戏变量
+        let correctCount = 0;
+        let wrongCount = 0;
+        let totalReactionTime = 0;
+        let roundCount = 0;
+        let startTime;
+        let currentColor;
+        let gameStarted = false;
+        
+        // 颜色和词汇数据
+        const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+        const colorNames = {
+            'red': '红色',
+            'blue': '蓝色',
+            'green': '绿色',
+            'yellow': '黄色',
+            'purple': '紫色',
+            'orange': '橙色'
+        };
+        const colorWords = ['红', '蓝', '绿', '黄', '紫', '橙'];
+        
+        // 初始化游戏
+        function initGame() {
+            document.getElementById('start-btn').classList.remove('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+            document.getElementById('word-display').textContent = '';
+            document.getElementById('result').textContent = '';
+        }
+        
+        // 开始游戏
+        function startGame() {
+            gameStarted = true;
+            document.getElementById('start-btn').classList.add('hidden');
+            nextRound();
+        }
+        
+        // 下一题
+        function nextRound() {
+            document.getElementById('next-btn').classList.add('hidden');
+            document.getElementById('result').textContent = '';
+            
+            // 随机选择颜色和文字
+            const colorIndex = Math.floor(Math.random() * colors.length);
+            const wordIndex = Math.floor(Math.random() * colorWords.length);
+            
+            currentColor = colors[colorIndex];
+            const word = colorWords[wordIndex];
+            
+            // 显示文字
+            const display = document.getElementById('word-display');
+            display.textContent = word;
+            display.style.color = currentColor;
+            
+            // 记录开始时间
+            startTime = new Date().getTime();
+        }
+        
+        // 检查答案
+        function checkAnswer(selectedColor) {
+            if (!gameStarted) return;
+            
+            const endTime = new Date().getTime();
+            const reactionTime = endTime - startTime;
+            
+            totalReactionTime += reactionTime;
+            roundCount++;
+            
+            const resultElement = document.getElementById('result');
+            
+            if (selectedColor === currentColor) {
+                correctCount++;
+                resultElement.innerHTML = `正确! 反应时间: ${reactionTime}ms`;
+                resultElement.className = 'success';
+            } else {
+                wrongCount++;
+                resultElement.innerHTML = `错误! 正确答案是${colorNames[currentColor]}，你的答案是${colorNames[selectedColor]}。反应时间: ${reactionTime}ms`;
+                resultElement.className = 'error';
+            }
+            
+            // 更新统计信息
+            updateStats();
+            
+            // 显示下一题按钮
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+        
+        // 更新统计信息
+        function updateStats() {
+            document.getElementById('correct').textContent = correctCount;
+            document.getElementById('wrong').textContent = wrongCount;
+            document.getElementById('avg-time').textContent = roundCount > 0 ? Math.round(totalReactionTime / roundCount) : 0;
+            document.getElementById('round').textContent = roundCount;
+        }
+        
+        // 重置游戏
+        function resetGame() {
+            correctCount = 0;
+            wrongCount = 0;
+            totalReactionTime = 0;
+            roundCount = 0;
+            gameStarted = false;
+            
+            updateStats();
+            initGame();
+        }
+        
+        // 初始化游戏
+        window.onload = function() {
+            initGame();
+        };
+    </script>
+</body>
+</html>
