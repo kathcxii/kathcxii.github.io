@@ -167,6 +167,7 @@
         .stat-item {
             text-align: center;
             margin: 10px;
+            min-width: 120px;
         }
 
         .stat-value {
@@ -249,9 +250,74 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
+            /* 修改移动端统计区域为横向排列 */
             .stats-container {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .stat-item {
+                flex: 1;
+                margin: 5px;
+                min-width: auto;
+            }
+            
+            .stat-value {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* 针对小屏幕的进一步优化 */
+        @media (max-width: 480px) {
+            .game-content {
+                padding: 15px;
+            }
+            
+            .header {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header p {
+                font-size: 0.9rem;
+            }
+            
+            #word-display {
+                font-size: 3rem;
+                padding: 15px;
+            }
+            
+            .color-buttons {
+                gap: 10px;
+            }
+            
+            .color-btn {
+                font-size: 1rem;
+                padding: 12px;
+            }
+            
+            .stats-container {
+                padding: 10px;
+            }
+            
+            .stat-value {
+                font-size: 1.2rem;
+            }
+            
+            .stat-label {
+                font-size: 0.7rem;
+            }
+            
+            .game-btn {
+                font-size: 1rem;
+                padding: 10px 20px;
             }
         }
     </style>
