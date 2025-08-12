@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高尔顿板实验</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        
+        .game-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+            padding: 15px;
+            background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+            border-radius: 10px;
+        }
+        
+        .controls label {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .controls input, .controls button, .controls select {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        .controls button {
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .controls button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .controls button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(to right, #e3f2fd, #bbdefb);
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        
+        .board-container {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(to bottom, #8B4513, #5D2906);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        .pegs {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80%;
+        }
+        
+        .peg {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #FFFF00, #FFA500);
+            border-radius: 50%;
+            box-shadow: 0 0 5px #FFFF00;
+        }
+        
+        .bins {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20%;
+            display: flex;
+            border-top: 3px solid #333;
+        }
+        
+        .bin {
+            flex: 1;
+            border-right: 1px solid #333;
+            position: relative;
+            background-color: rgba(139, 69, 19, 0.3);
+        }
+        
+        .bin:last-child {
+            border-right: none;
+        }
+        
+        .ball {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle, #FF0000, #8B0000);
+            border-radius: 50%;
+            transition: top 0.1s linear;
+            box-shadow: 0 0 5px #FF0000;
+        }
+        
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(to right, #f1f8e9, #dcedc8);
+            border-radius: 10px;
+        }
+        
+        .distribution-chart {
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, #4CAF50, #8BC34A);
+            transition: height 0.5s ease;
+            min-width: 12px;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+        }
+        
+        .bar::after {
+            content: attr(data-value);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .instructions {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(to right, #e1f5fe, #b3e5fc);
+            border-radius: 10px;
+        }
+        
+        .instructions h3 {
+            margin-top: 0;
+            color: #0D47A1;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        .similarity {
+            font-weight: bold;
+            color: #1976D2;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>高尔顿板实验</h1>
+    
+    <div class="game-container">
+        <div class="controls">
+            <label for="ballCount">小球数量:</label>
+            <input type="number" id="ballCount" min="1" max="1000" value="100">
+            
+            <label for="dropMode">投放方式:</label>
+            <select id="dropMode">
+                <option value="sequential">逐个投放</option>
+                <option value="simultaneous">同时投放</option>
+            </select>
+            
+            <button id="startBtn">开始</button>
+            <button id="resetBtn">重置</button>
+        </div>
+        
+        <div class="stats">
+            <div>已投放小球: <span id="droppedBalls">0</span>/<span id="totalBalls">0</span></div>
+            <div>分布与正态曲线相似度: <span id="similarity" class="similarity">0%</span></div>
+        </div>
+        
+        <div class="board-container">
+            <div class="pegs" id="pegs"></div>
+            <div class="bins" id="bins"></div>
+        </div>
+        
+        <div class="results">
+            <h3>分布结果:</h3>
+            <div class="distribution-chart" id="distributionChart"></div>
+        </div>
+        
+        <div class="instructions">
+            <h3>实验说明:</h3>
+            <ul>
+                <li>设置要投放的小球数量，选择投放方式，然后点击"开始"</li>
+                <li>小球会从顶部下落，遇到钉子后随机向左或向右偏转</li>
+                <li>小球最终会落入底部的不同箱子中，形成分布</li>
+                <li>实验结果显示实际分布与标准正态分布的相似度</li>
+                <li>逐个投放可以看到每个小球的运动轨迹，同时投放可快速得到结果</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        class GaltonBoard {
+            constructor(rows = 10) {
+                this.rows = rows;
+                this.bins = new Array(rows + 1).fill(0);
+                this.ballCount = 0;
+                this.droppedBalls = 0;
+                this.isRunning = false;
+                
+                this.boardContainer = document.querySelector('.board-container');
+                this.pegsContainer = document.getElementById('pegs');
+                this.binsContainer = document.getElementById('bins');
+                this.distributionChart = document.getElementById('distributionChart');
+                
+                this.initBoard();
+                this.setupEventListeners();
+            }
+            
+            initBoard() {
+                // 创建钉子
+                this.pegsContainer.innerHTML = '';
+                const pegSpacingX = this.boardContainer.offsetWidth / (this.rows + 2);
+                const pegSpacingY = (this.boardContainer.offsetHeight * 0.8) / (this.rows + 1);
+                
+                for (let row = 1; row <= this.rows; row++) {
+                    for (let col = 0; col <= row; col++) {
+                        const peg = document.createElement('div');
+                        peg.className = 'peg';
+                        peg.style.left = (pegSpacingX * (col + (this.rows - row) / 2 + 1) - 6) + 'px';
+                        peg.style.top = (pegSpacingY * row - 6) + 'px';
+                        this.pegsContainer.appendChild(peg);
+                    }
+                }
+                
+                // 创建箱子
+                this.binsContainer.innerHTML = '';
+                this.bins = new Array(this.rows + 1).fill(0);
+                
+                for (let i = 0; i <= this.rows; i++) {
+                    const bin = document.createElement('div');
+                    bin.className = 'bin';
+                    bin.dataset.index = i;
+                    this.binsContainer.appendChild(bin);
+                }
+                
+                // 初始化分布图表
+                this.updateDistributionChart();
+            }
+            
+            setupEventListeners() {
+                document.getElementById('startBtn').addEventListener('click', () => {
+                    const ballCount = parseInt(document.getElementById('ballCount').value);
+                    if (ballCount > 0 && !this.isRunning) {
+                        this.startGame(ballCount);
+                    }
+                });
+                
+                document.getElementById('resetBtn').addEventListener('click', () => {
+                    this.resetGame();
+                });
+                
+                // 监听窗口大小变化
+                window.addEventListener('resize', () => {
+                    this.initBoard();
+                });
+            }
+            
+            async startGame(ballCount) {
+                this.isRunning = true;
+                this.ballCount = ballCount;
+                document.getElementById('totalBalls').textContent = ballCount;
+                document.getElementById('droppedBalls').textContent = '0';
+                
+                document.getElementById('startBtn').disabled = true;
+                
+                const dropMode = document.getElementById('dropMode').value;
+                
+                if (dropMode === 'simultaneous') {
+                    // 同时投放所有小球
+                    const promises = [];
+                    for (let i = 0; i < ballCount; i++) {
+                        promises.push(this.dropBall());
+                    }
+                    await Promise.all(promises);
+                    document.getElementById('droppedBalls').textContent = ballCount;
+                } else {
+                    // 逐个投放小球，每投放一定数量就更新相似度
+                    for (let i = 0; i < ballCount; i++) {
+                        await this.dropBall();
+                        document.getElementById('droppedBalls').textContent = i + 1;
+                        
+                        // 每投放10个小球或最后一小球时更新相似度
+                        if ((i + 1) % 10 === 0 || i === ballCount - 1) {
+                            this.calculateSimilarity();
+                        }
+                    }
+                }
+                
+                // 最后再次计算相似度确保准确性
+                this.calculateSimilarity();
+                
+                this.isRunning = false;
+                document.getElementById('startBtn').disabled = false;
+            }
+            
+            async dropBall() {
+                return new Promise((resolve) => {
+                    const ball = document.createElement('div');
+                    ball.className = 'ball';
+                    
+                    // 设置小球初始位置
+                    const startX = this.boardContainer.offsetWidth / 2;
+                    ball.style.left = (startX - 7) + 'px';
+                    ball.style.top = '0px';
+                    
+                    this.boardContainer.appendChild(ball);
+                    
+                    // 模拟小球下落路径
+                    let posX = startX;
+                    const dropHeight = this.boardContainer.offsetHeight * 0.8;
+                    const pegSpacingY = dropHeight / (this.rows + 1);
+                    
+                    // 动画下落
+                    let step = 0;
+                    const fallInterval = setInterval(() => {
+                        step++;
+                        const currentY = (dropHeight * step) / (this.rows + 1);
+                        ball.style.top = currentY + 'px';
+                        
+                        // 在每一行遇到钉子时随机偏转
+                        if (step <= this.rows) {
+                            // 随机向左或向右偏转
+                            const direction = Math.random() < 0.5 ? -1 : 1;
+                            const pegSpacingX = this.boardContainer.offsetWidth / (this.rows + 2);
+                            posX += direction * pegSpacingX / 2;
+                            
+                            // 限制在边界内
+                            posX = Math.max(7, Math.min(this.boardContainer.offsetWidth - 7, posX));
+                            ball.style.left = (posX - 7) + 'px';
+                        }
+                        
+                        // 到达底部
+                        if (step > this.rows) {
+                            clearInterval(fallInterval);
+                            
+                            // 确定落入哪个箱子
+                            const binWidth = this.boardContainer.offsetWidth / (this.rows + 1);
+                            const binIndex = Math.min(this.rows, Math.max(0, Math.floor(posX / binWidth)));
+                            
+                            // 更新箱子计数
+                            this.bins[binIndex]++;
+                            
+                            // 移除小球元素
+                            ball.remove();
+                            
+                            // 更新分布图表
+                            this.updateDistributionChart();
+                            
+                            resolve();
+                        }
+                    }, 50);
+                });
+            }
+            
+            updateDistributionChart() {
+                this.distributionChart.innerHTML = '';
+                
+                const maxCount = Math.max(...this.bins, 1);
+                
+                for (let i = 0; i <= this.rows; i++) {
+                    const bar = document.createElement('div');
+                    bar.className = 'bar';
+                    const height = (this.bins[i] / maxCount) * 180;
+                    bar.style.height = height + 'px';
+                    bar.setAttribute('data-value', this.bins[i]);
+                    bar.title = `箱子 ${i}: ${this.bins[i]} 个小球`;
+                    this.distributionChart.appendChild(bar);
+                }
+            }
+            
+            calculateSimilarity() {
+                // 计算实际分布与标准正态分布的相似度
+                const totalBalls = this.bins.reduce((sum, count) => sum + count, 0);
+                if (totalBalls === 0) {
+                    document.getElementById('similarity').textContent = '0%';
+                    return;
+                }
+                
+                // 计算期望的正态分布
+                const expected = this.calculateExpectedDistribution();
+                const actual = this.bins.map(count => count / totalBalls);
+                
+                // 计算与期望分布的差异（越小越好）
+                let diff = 0;
+                for (let i = 0; i < expected.length; i++) {
+                    diff += Math.abs(expected[i] - actual[i]);
+                }
+                
+                // 转换为相似度百分比
+                const similarity = Math.max(0, Math.round(100 * (1 - diff/2)));
+                document.getElementById('similarity').textContent = similarity + '%';
+            }
+            
+            calculateExpectedDistribution() {
+                // 计算标准正态分布在各个箱子位置的概率
+                const n = this.rows;
+                const mean = n / 2;
+                const stdDev = Math.sqrt(n / 4); // 二项分布的标准差
+                
+                const distribution = [];
+                let total = 0;
+                
+                // 使用正态分布概率密度函数计算每个箱子的概率
+                for (let i = 0; i <= n; i++) {
+                    // 标准正态分布的概率密度
+                    const x = (i - mean) / stdDev;
+                    const prob = Math.exp(-0.5 * x * x) / (stdDev * Math.sqrt(2 * Math.PI));
+                    distribution.push(prob);
+                    total += prob;
+                }
+                
+                // 归一化
+                return distribution.map(val => val / total);
+            }
+            
+            resetGame() {
+                // 清除所有小球
+                const balls = document.querySelectorAll('.ball');
+                balls.forEach(ball => ball.remove());
+                
+                this.bins = new Array(this.rows + 1).fill(0);
+                this.ballCount = 0;
+                this.droppedBalls = 0;
+                this.isRunning = false;
+                
+                document.getElementById('droppedBalls').textContent = '0';
+                document.getElementById('totalBalls').textContent = '0';
+                document.getElementById('similarity').textContent = '0%';
+                document.getElementById('startBtn').disabled = false;
+                
+                this.initBoard();
+            }
+        }
+        
+        // 初始化游戏
+        window.addEventListener('DOMContentLoaded', () => {
+            const game = new GaltonBoard(8);
+        });
+    </script>
+</body>
+</html>
