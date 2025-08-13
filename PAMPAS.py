@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAMPAS - 大模型复杂智能体实验室</title>
+    <meta name="description" content="PAMPAS实验室（大模型复杂智能体实验室）致力于推动人工智能技术的前沿研究与产业化应用，聚焦数字人、检索增强生成（RAG）和复杂智能体系统研究。">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h2>PAMPAS</h2>
+                <p>大模型复杂智能体实验室</p>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">实验室介绍</a></li>
+                <li><a href="#research">研究方向</a></li>
+                <li><a href="#digital-human">数字人</a></li>
+                <li><a href="#rag">RAG</a></li>
+                <li><a href="#agent">Agent</a></li>
+                <li><a href="#projects">研究成果</a></li>
+                <li><a href="#team">团队成员</a></li>
+                <li><a href="#publications">学术发表</a></li>
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首页部分 -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>欢迎来到<span class="highlight">PAMPAS</span>  welcome</h1>
+            <p>大模型复杂智能体实验室</p>
+            <p class="subtitle">推动人工智能技术的前沿研究与产业化应用</p>
+            <div class="cta-buttons">
+                <a href="#digital-human" class="btn primary">数字人 👤</a>
+                <a href="#rag" class="btn secondary">RAG 🔍</a>
+                <a href="#agent" class="btn secondary">Agent 🤖</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 实验室介绍部分 -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">实验室介绍</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>PAMPAS实验室（大模型复杂智能体实验室）成立于2024年，依托于国科大杭州高等研究院智能学院与杭州牧语工场科技有限公司。实验室由徐常亮博士担任负责人，致力于推动人工智能技术的前沿研究与产业化应用。</p>
+                    <p>PAMPAS（Plan-Action Modularized Parallel Agent System）
+                    <p>想象一片辽阔的潘帕斯草原——这里没有边界，只有无尽的协作与可能。PAMPAS 正是这样一个多智能体协作平台，它将复杂任务拆分为可独立升级的功能模块（Modularized），让每个智能体在清晰的全局计划（Plan）指引下，高效执行行动（Action），并行（Parallel）推进多个任务流。</p>
+                    <p>实验室汇聚了来自计算机科学、人工智能、系统科学等领域的研究人员，旨在推动大模型智能体技术在实际问题中的创新应用。</p>
+                    <div class="lab-info">
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>位置: 国科大杭州高等研究院智能学院</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>成立时间: 2024年</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-users"></i>
+                            <a href="#team" class="director-link"><span>负责人: 徐常亮博士（点击查看简介）</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="image/pampas-lab.png" alt="PAMPAS实验室" class="about-image-photo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 研究方向部分 -->
+    <section id="research" class="skills">
+        <div class="container">
+            <h2 class="section-title">研究方向</h2>
+            <div class="skills-grid">
+                <a href="#digital-human" class="skill-card-link">
+                    <div class="skill-card">
+                        <i class="fas fa-user-circle"></i>
+                        <h3>数字人技术研究</h3>
+                        <p>打造会表达、会互动、具个体化的虚拟分身。我们专注于"数字人"的智能生成与驱动技术，致力于让虚拟形象更真实、更自然、更个性。</p>
+                    </div>
+                </a>
+                <a href="#rag" class="skill-card-link">
+                    <div class="skill-card">
+                        <i class="fas fa-search"></i>
+                        <h3>检索增强生成（RAG）</h3>
+                        <p>通过检索为大模型注入知识源泉。结合检索和生成的先进人工智能技术，从大规模知识库中检索相关信息，增强生成模型的能力。</p>
+                    </div>
+                </a>
+                <a href="#agent" class="skill-card-link">
+                    <div class="skill-card">
+                        <i class="fas fa-robot"></i>
+                        <h3>复杂智能体（Agent）系统</h3>
+                        <p>独立感知环境、做出决策并执行任务。AI Agent具备自主性、目标导向、适应性和互动性，能够独立运行而不需要人类持续干预。</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数字人技术详细介绍 -->
+    <section id="digital-human" class="research-detail">
+        <div class="container">
+            <h2 class="section-title">数字人技术研究</h2>
+            <div class="research-content">
+                <h3>打造会表达、会互动、具个体化的虚拟分身</h3>
+                <p>我们专注于"数字人"的智能生成与驱动技术，致力于让虚拟形象更真实、更自然、更个性。不仅可以为虚拟角色赋予生命力，也可以创造属于我们自己的数字分身！</p>
+                
+                <div class="research-subsection">
+                    <h4>应用场景</h4>
+                    <p>数字人技术特别适用于需要强人机交互感、表达丰富信息的场景，如在线教育、虚拟客服、智能主播和虚拟社交等。</p>
+                    <p>通过构建个性化的数字形象，用户可以打破物理限制实现"数字分身"的跨空间表达，以全新的方式展示自我、传递信息、参与交流。</p>
+                </div>
+                
+                <div class="research-subsection">
+                    <h4>技术实现</h4>
+                    <p>在数字人系统中，用户只需提供语音、视频或文本指令，系统便可自动识别其中的寓意和情绪特征，并同步生成符合语境的口型动画、面部表情和肢体动作。</p>
+                    <p>这些输出由一系列深度学习模型协同完成，包括语音驱动模型、表情生成模型、动作合成模型和3D渲染模块等，功能构建出一个可"说话""表演""互动"的虚拟人物。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 检索增强生成详细介绍 -->
+    <section id="rag" class="research-detail">
+        <div class="container">
+            <h2 class="section-title">检索增强生成（RAG）</h2>
+            <div class="research-content">
+                <h3>通过检索为大模型注入知识源泉</h3>
+                
+                <div class="research-subsection">
+                    <h4>关于RAG</h4>
+                    <p>检索增强生成（Retrieval-Augumented Generation, RAG）是一种结合了检索和生成的先进人工智能技术。它通过从大规模知识库中检索相关信息，然后利用这些信息来增强生成模型的能力，从而生成更加准确和丰富的文本内容。</p>
+                </div>
+                
+                <div class="research-subsection">
+                    <h4>RAG的流程</h4>
+                    <p>RAG会根据用户的问题或输入，在预先构建的知识库中进行检索，找到最相关的信息片段。这些信息片段随后被一并输入到大语言模型中，作为上下文信息，帮助模型更好地理解问题并生成答案。</p>
+                </div>
+                
+                <div class="research-subsection">
+                    <h4>应用场景</h4>
+                    <p>RAG模型特别适用于需要大量背景知识来理解复杂问题的场景，如医疗咨询、法律咨询和学术研究等。通过检索增强生成，人工智能系统能够提供更加深入和专业的解答，极大地提升了用户体验和满意度。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 智能体系统详细介绍 -->
+    <section id="agent" class="research-detail">
+        <div class="container">
+            <h2 class="section-title">复杂智能体（Agent）系统</h2>
+            <div class="research-content">
+                <h3>数字世界的自主工作者</h3>
+                <p>独立感知环境、做出决策并执行任务。</p>
+                
+                <div class="research-subsection">
+                    <h4>AI Agent特点</h4>
+                    <p>AI Agent作为一种智能系统，具备以下特点：</p>
+                    <ul>
+                        <li><strong>自主性：</strong>能够独立运行而不需要人类持续干预</li>
+                        <li><strong>目标导向：</strong>专注于完成特定的任务，如回答问题或导航</li>
+                        <li><strong>适应性：</strong>通过机器学习不断优化其性能</li>
+                        <li><strong>互动性：</strong>能够通过自然语言处理等方式与用户或其它系统进行沟通</li>
+                    </ul>
+                </div>
+                
+                <div class="research-subsection">
+                    <h4>技术整合</h4>
+                    <p>AI Agent通过整合RAG（检索增强生成）框架，能够更高效地利用外部知识库，解决传统大语言模型的局限性。这种技术的采用将显著提升AI系统的准确性和上下文感知能力，推动市场需求的增长。</p>
+                </div>
+                
+                <div class="research-subsection">
+                    <h4>应用范围</h4>
+                    <p>AI Agent的应用范围广泛，例如：</p>
+                    <ul>
+                        <li>智能客服和Siri等聊天机器人帮助用户回答问题</li>
+                        <li>Netflix和亚马逊的推荐系统根据用户偏好推荐内容</li>
+                        <li>特斯拉通过感知环境实现自主驾驶</li>
+                        <li>企业中的机器人流程自动化处理数据录入等重复性任务</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 研究成果部分 -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">研究成果</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="image/pywen.png" alt="Pywen" class="project-image-photo">
+                    </div>
+                    <div class="project-info">
+                        <h3>Pywen 🐍</h3>
+                        <p>Qwen3-Coder powered Python CLI tool</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">CLI工具</span>
+                            <span class="tag">大语言模型</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="image/pptanimate.jpg" alt="ppt-animate" class="project-image-photo">
+                    </div>
+                    <div class="project-info">
+                        <h3>ppt-animate  presentation</h3>
+                        <p>基于LLM的PowerPoint动画生成与解析尝试</p>
+                        <div class="project-tags">
+                            <span class="tag">PowerPoint</span>
+                            <span class="tag">动画生成</span>
+                            <span class="tag">大语言模型</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="projects-note">详细内容可通过页脚的社交链接区进入GitHub查看 🔗</p>
+        </div>
+    </section>
+
+
+
+    <!-- 学术发表部分 -->
+    <section id="publications" class="publications">
+        <div class="container">
+            <h2 class="section-title">学术发表</h2>
+            <div class="publications-list">
+                <div class="publication-item">
+                    <h3>Animation Needs Attention: A Holistic Approach to Slides Animation Comprehension with Visual-Language Models  book</h3>
+                    <p class="journal">可通过 <a href="https://arxiv.org/abs/2507.03916" target="_blank">arXiv:2507.03916</a> 查看具体内容</p>
+                    <p>提出了一种基于视觉-语言模型的幻灯片动画理解整体方法... </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 团队成员部分 -->
+    <section id="team" class="team">
+        <div class="container">
+            <h2 class="section-title">团队成员</h2>
+            
+            <!-- 第一级：实验室负责人 -->
+            <div class="team-grid team-level-1">
+                <div class="team-member director-profile">
+                    <div class="member-image">
+                        <img src="image/徐常亮.jpg" alt="徐常亮博士" class="member-avatar">
+                    </div>
+                    <div class="member-info">
+                        <h3>徐常亮博士 </h3>
+                        <p class="position">实验室负责人</p>
+                        <div class="bio">
+                            <p>北大本科，普林斯顿博士，国科大杭高院研究员/牧语工厂创始人。</p>
+                            <p>主持和承担包括国家重点研发计划/省市各级重点研发计划。</p>
+                            <p><strong>工作经历：</strong></p>
+                            <ul>
+                                <li>曾任阿里云大数据总经理、大数据平台ODPS/MaxCompute技术负责人和杭州城市大脑技术骨干</li>
+                                <li>MaxComputer和城市大脑都各自获得浙江省科技进步一等奖</li>
+                                <li>曾负责国家863计划信息技术领域"云计算关键技术与系统（一期）"项目大数据板块</li>
+                                <li>代表阿里云答辩了大数据系统软件国家工程实验室</li>
+                                <li>曾任媒体融合生产技术与系统国家重点实验室学术带头人</li>
+                                <li>负责智能化视频生产系统研究部</li>
+                                <li>牵头与新华社等媒体机构、清华等高校制定了全球首个机器生产内容（MGC/AIGC)自动化分级标准</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第二级成员 -->
+            <div class="team-grid team-level-2">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="image/彭剑.jpg" alt="彭剑" class="member-avatar">
+                    </div>
+                    <div class="member-info">
+                        <h3>彭剑</h3>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="image/林美伶.jpg" alt="林美伶" class="member-avatar">
+                    </div>
+                    <div class="member-info">
+                        <h3>林美伶</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第三级成员 -->
+            <div class="team-grid team-level-3">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="image/蒋一帆.jpg" alt="蒋一帆" class="member-avatar">
+                    </div>
+                    <div class="member-info">
+                        <h3>蒋一帆</h3>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="image/陈龙荣.jpg" alt="陈龙荣" class="member-avatar">
+                    </div>
+                    <div class="member-info">
+                        <h3>陈龙荣</h3>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="image/薛逸博.jpg" alt="薛逸博" class="member-avatar">
+                    </div>
+                    <div class="member-info">
+                        <h3>薛逸博</h3>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="image/陈亦冉.jpg" alt="陈亦冉" class="member-avatar">
+                    </div>
+                    <div class="member-info">
+                        <h3>陈亦冉</h3>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="image/康宇焜.jpg" alt="康宇焜" class="member-avatar">
+                    </div>
+                    <div class="member-info">
+                        <h3>康宇焜</h3>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="image/郑品.jpg" alt="郑品" class="member-avatar">
+                    </div>
+                    <div class="member-info">
+                        <h3>郑品</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式部分 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">联系我们</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>欢迎交流合作  handshake</h3>
+                    <p>如果您对我们的大模型智能体研究感兴趣或希望开展合作，请随时联系我们。 📩</p>
+                    <div class="contact-methods">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>地址: 杭州市西湖区象山支弄1号 国科大杭州高等研究院（云艺园区）</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>邮箱:</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>电话: </span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-weixin"></i>
+                            <span>微信公众号：PAMPAS实验室</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="lab-info">
+                    <h3>PAMPAS 实验室</h3>
+                    <p>大模型复杂智能体实验室</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/PAMPAS-Lab/" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <p>&copy; 2025 PAMPAS - 大模型复杂智能体实验室. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <button id="backToTop" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <script src="script.js"></script>
+</body>
+</html>
