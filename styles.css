@@ -416,7 +416,7 @@ h1, h2, h3, p {
     background: white;
     padding: 2rem;
     border-radius: 15px;
-    text-align: center;
+    text-align: left;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     position: relative;
@@ -460,6 +460,7 @@ h1, h2, h3, p {
     margin-bottom: 1rem;
     color: #2c3e50;
     font-weight: 600;
+    text-align: center;
 }
 
 .skill-card p {
